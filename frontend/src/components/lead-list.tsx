@@ -1,6 +1,7 @@
 import { Pin } from "lucide-react";
 
 import { followUpState } from "@/lib/dates";
+import { usePrefetchLead } from "@/lib/queries";
 import type { LeadGroups } from "@/lib/group-leads";
 
 import { LeadCard } from "./lead-card";
@@ -22,6 +23,7 @@ function SectionTitle({ children, count }: { children: React.ReactNode; count: n
 }
 
 export function LeadList({ groups, now, highlightId, onOpen }: LeadListProps) {
+  const prefetch = usePrefetchLead();
   const overdue = groups.due.filter((lead) => followUpState(lead.follow_up_at, now) === "overdue").length;
 
   return (
@@ -46,6 +48,7 @@ export function LeadList({ groups, now, highlightId, onOpen }: LeadListProps) {
                 tone={followUpState(lead.follow_up_at, now) === "overdue" ? "overdue" : "today"}
                 highlighted={lead.id === highlightId}
                 onOpen={onOpen}
+                onPrefetch={prefetch}
               />
             ))}
           </ul>
@@ -59,7 +62,14 @@ export function LeadList({ groups, now, highlightId, onOpen }: LeadListProps) {
           </SectionTitle>
           <ul className="space-y-3">
             {groups.rest.map((lead) => (
-              <LeadCard key={lead.id} lead={lead} now={now} highlighted={lead.id === highlightId} onOpen={onOpen} />
+              <LeadCard
+                key={lead.id}
+                lead={lead}
+                now={now}
+                highlighted={lead.id === highlightId}
+                onOpen={onOpen}
+                onPrefetch={prefetch}
+              />
             ))}
           </ul>
         </section>

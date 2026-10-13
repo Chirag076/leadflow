@@ -1,6 +1,7 @@
 "use client";
 
 import { keepPreviousData, useMutation, useQuery, useQueryClient, type QueryClient } from "@tanstack/react-query";
+import { useCallback } from "react";
 
 import { api } from "./api";
 import type { LeadDetail, LeadFilters, LeadList, LeadStatus, LeadSummary, NewDiscussion, NewLead } from "./types";
@@ -33,6 +34,15 @@ export function useLead(id: number | null) {
     queryFn: () => api.getLead(id!),
     enabled: id !== null,
   });
+}
+
+/** Warm a lead's timeline when the pointer reaches its card, so the dialog opens already filled. */
+export function usePrefetchLead() {
+  const client = useQueryClient();
+  return useCallback(
+    (id: number) => void client.prefetchQuery({ queryKey: leadKeys.detail(id), queryFn: () => api.getLead(id) }),
+    [client],
+  );
 }
 
 export function useCreateLead() {

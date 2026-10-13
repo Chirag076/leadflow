@@ -11,6 +11,7 @@ interface LeadCardProps {
   tone?: "default" | "today" | "overdue";
   highlighted?: boolean;
   onOpen: (id: number) => void;
+  onPrefetch?: (id: number) => void;
 }
 
 const TONES = {
@@ -19,7 +20,7 @@ const TONES = {
   overdue: "border-rose-200 bg-rose-50/70 hover:border-rose-300",
 };
 
-export function LeadCard({ lead, now, tone = "default", highlighted = false, onOpen }: LeadCardProps) {
+export function LeadCard({ lead, now, tone = "default", highlighted = false, onOpen, onPrefetch }: LeadCardProps) {
   const last = lead.last_discussion;
   const closed = isClosed(lead.status);
 
@@ -28,6 +29,8 @@ export function LeadCard({ lead, now, tone = "default", highlighted = false, onO
       <button
         type="button"
         onClick={() => onOpen(lead.id)}
+        onPointerEnter={() => onPrefetch?.(lead.id)}
+        onFocus={() => onPrefetch?.(lead.id)}
         className={`block w-full rounded-lg border px-4 py-3.5 text-left shadow-[0_1px_2px_rgba(15,23,42,0.04)] transition hover:shadow-md focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600 sm:px-5 ${TONES[tone]} ${highlighted ? "animate-[flash_1.6s_ease-out]" : ""}`}
       >
         <div className="flex items-start justify-between gap-3">
