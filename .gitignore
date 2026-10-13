@@ -1,0 +1,29 @@
+# dependencies
+node_modules/
+.venv/
+venv/
+__pycache__/
+*.pyc
+
+# builds
+.next/
+out/
+build/
+dist/
+*.tsbuildinfo
+next-env.d.ts
+
+# local data and env
+*.db
+*.db-journal
+.env
+.env.local
+.env.*.local
+
+# tooling
+.pytest_cache/
+coverage/
+.coverage
+.DS_Store
+.idea/
+.vscode/
