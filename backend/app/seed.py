@@ -69,7 +69,7 @@ def build_samples(now: datetime) -> list[Sample]:
                 Entry(days_ago(5, 9, 5), "Status changed from New to Qualified.", DiscussionKind.EVENT),
                 Entry(days_ago(2, 10, 30), "Sent pricing tier PDF. Said she would review with her boss.",
                       follow_up_at=later_today),
-                Entry(days_ago(2, 10, 31), "Status changed from Qualified to Proposal sent.", DiscussionKind.EVENT),
+                Entry(days_ago(2, 10, 31), "Status changed from Qualified to Proposal Sent.", DiscussionKind.EVENT),
             ],
         ),
         Sample(

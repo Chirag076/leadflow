@@ -109,7 +109,7 @@ def test_status_update_persists_and_is_logged(client: TestClient, make_lead):
 
     assert response.status_code == 200
     assert response.json()["status"] == "proposal_sent"
-    assert response.json()["discussions"][0]["body"] == "Status changed from New to Proposal sent."
+    assert response.json()["discussions"][0]["body"] == "Status changed from New to Proposal Sent."
     assert client.get(f"/api/leads/{lead['id']}").json()["status"] == "proposal_sent"
 
 

@@ -17,7 +17,7 @@ class LeadStatus(str, enum.Enum):
 
     @property
     def label(self) -> str:
-        return self.value.replace("_", " ").capitalize()
+        return self.value.replace("_", " ").title()  # "Proposal Sent", as the UI shows it
 
 
 class DiscussionKind(str, enum.Enum):
