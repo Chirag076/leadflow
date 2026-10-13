@@ -126,7 +126,7 @@ Authentication (the brief made it optional), Alembic migrations instead of `crea
 
 ## Use of AI
 
-Built with Claude (Anthropic) as a coding assistant, as the brief encouraged; commits it helped write carry a `Co-Authored-By` trailer. The decisions above are written down so they can be questioned in review, and every flow in the table was checked in a browser against the Postgres stack.
+Built with Claude (Anthropic) as a coding assistant, as the brief encouraged. The decisions above are written down so they can be questioned in review, and every flow in the table was checked in a browser against the Postgres stack.
 
 ## Screenshots
 
