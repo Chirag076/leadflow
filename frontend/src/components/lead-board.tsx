@@ -9,8 +9,10 @@ import { groupLeads } from "@/lib/group-leads";
 import { useLeads } from "@/lib/queries";
 import type { LeadStatus } from "@/lib/types";
 
+import { AddLeadDialog } from "./add-lead-dialog";
 import { FilterBar } from "./filter-bar";
 import { Header } from "./header";
+import { LeadDialog } from "./lead-dialog/lead-dialog";
 import { LeadList } from "./lead-list";
 
 /** The whole app: one screen with the list, plus the two dialogs. */
@@ -22,7 +24,6 @@ export function LeadBoard() {
   const [openLeadId, setOpenLeadId] = useState<number | null>(null);
   const [adding, setAdding] = useState(false);
   const [highlightId, setHighlightId] = useState<number | null>(null);
-  void setHighlightId;
 
   const { data, isPending, isError, error, refetch, isFetching } = useLeads({ status, q: q || undefined });
   const groups = useMemo(() => (data ? groupLeads(data.items, now) : null), [data, now]);
@@ -81,8 +82,8 @@ export function LeadBoard() {
         </div>
       </main>
 
-      {/* dialogs arrive in the next step */}
-      <span hidden data-open-lead={openLeadId ?? undefined} data-adding={adding || undefined} />
+      <LeadDialog leadId={openLeadId} now={now} onClose={() => setOpenLeadId(null)} />
+      <AddLeadDialog open={adding} onClose={() => setAdding(false)} onCreated={setHighlightId} />
     </>
   );
 }
